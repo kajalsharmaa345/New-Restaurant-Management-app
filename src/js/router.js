@@ -14,7 +14,7 @@ const pages = {
     title: 'Welcome',
     icon: '🍽️',
     render: async (container) => {
-        const res = await fetch('/src/pages/landing.html');
+        const res = await fetch('./src/pages/landing.html');
         const html = await res.text();
         container.innerHTML = html;
 

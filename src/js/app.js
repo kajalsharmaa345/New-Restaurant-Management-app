@@ -2,31 +2,9 @@
 import { supabaseClient, getState, setState, Icons } from './config.js';
 import { checkAuth, renderLoginPage, initAuthListener, signOut } from './auth.js';
 import { navigateTo, pages } from './router.js';
-function renderLandingPage(container) {
-    container.innerHTML = `
-        <div class="landing-page">
-            <h1>🍽️ RestaurantOS</h1>
-            <p>Restaurant Management System</p>
 
-            <button id="getStartedBtn">
-                Get Started
-            </button>
 
-            <button id="loginBtn">
-                Login
-            </button>
-        </div>
-    `;
-}
-const isRefresh =
-    performance.navigation?.type === 1 ||
-    performance.getEntriesByType("navigation")[0]?.type === "reload";
 
-if (isRefresh) {
-    localStorage.removeItem(
-        'sb-ykkgnzcusbrklcyvmktm-auth-token'
-    );
-}
 // Initialize Application
 async function initApp() {
     const app = document.getElementById('app');
@@ -44,11 +22,10 @@ async function initApp() {
     // small delay for smooth UI
     setTimeout(async () => {
         if (!isAuthenticated) {
-            renderLandingPage(app);
-            initAuthListener();
-            return;
-        }
-
+    await navigateTo('landing');
+    initAuthListener();
+    return;
+}
         renderMainLayout(app);
         await navigateTo('dashboard');
     }, 300);
