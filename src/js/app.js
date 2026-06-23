@@ -3,11 +3,20 @@ import { supabaseClient, getState, setState, Icons } from './config.js';
 import { checkAuth, renderLoginPage, initAuthListener, signOut } from './auth.js';
 import { navigateTo, pages } from './router.js';
 function renderLandingPage(container) {
-   fetch('./src/pages/landing.html')
-        .then(res => res.text())
-        .then(html => {
-            container.innerHTML = html;
-        });
+    container.innerHTML = `
+        <div class="landing-page">
+            <h1>🍽️ RestaurantOS</h1>
+            <p>Restaurant Management System</p>
+
+            <button id="getStartedBtn">
+                Get Started
+            </button>
+
+            <button id="loginBtn">
+                Login
+            </button>
+        </div>
+    `;
 }
 const isRefresh =
     performance.navigation?.type === 1 ||
