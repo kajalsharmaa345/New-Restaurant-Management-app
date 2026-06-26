@@ -3,13 +3,9 @@ import { supabaseClient, getState, setState, Icons } from './config.js';
 import { checkAuth, renderLoginPage, initAuthListener, signOut } from './auth.js';
 import { navigateTo, pages } from './router.js';
 
-
-
-// Initialize Application
 async function initApp() {
-    const app = document.getElementById('app');
+    const app = document.getElementById("app");
 
-    // ✅ STEP 1: Always show loading first
     app.innerHTML = `
         <div class="loading-screen">
             <div class="loading-spinner"></div>
@@ -17,17 +13,26 @@ async function initApp() {
         </div>
     `;
 
-    const isAuthenticated = await checkAuth();
-
-    // small delay for smooth UI
     setTimeout(async () => {
+
+        const isAuthenticated = await checkAuth();
+
         if (!isAuthenticated) {
-    await navigateTo('landing');
-    initAuthListener();
-    return;
-}
+            const res = await fetch("./src/pages/landing.html");
+            app.innerHTML = await res.text();
+
+            // Landing buttons initialize
+            const { initLanding } = await import("./landing.js");
+            initLanding();
+
+            return;
+        }
+
+        // Logged in user
         renderMainLayout(app);
-        await navigateTo('dashboard');
+        await navigateTo("dashboard");
+        initAuthListener();
+
     }, 300);
 }
 // Render Main Layout

@@ -1,18 +1,13 @@
-import { navigateTo } from './router.js';
+import { renderLoginPage } from "./auth.js";
 
 export function initLanding() {
-  const getStartedBtn = document.getElementById("getStartedBtn");
-  const loginBtn = document.getElementById("loginBtn");
+    const app = document.getElementById("app");
 
-  if (getStartedBtn) {
-    getStartedBtn.addEventListener("click", () => {
-      navigateTo("/signup");
+    document.getElementById("getStartedBtn")?.addEventListener("click", () => {
+        renderLoginPage(app);
     });
-  }
 
-  if (loginBtn) {
-    loginBtn.addEventListener("click", () => {
-      navigateTo("/login");
+    document.getElementById("loginBtn")?.addEventListener("click", () => {
+        renderLoginPage(app);
     });
-  }
 }

@@ -109,7 +109,7 @@ export async function signOut() {
 
     setState({ user: null, profile: null });
    localStorage.removeItem('sb-ykkgnzcusbrklcyvmktm-auth-token');
-   window.location.href = "/";
+  window.location.reload();
 
 
 }
@@ -229,8 +229,8 @@ await signUp(email, password, fullname);
             }
 
             // Redirect to dashboard
-            setTimeout(() => {
-    window.location.href = "/";
+           setTimeout(() => {
+    window.location.reload();
 }, 500);
         } catch (error) {
     console.error("AUTH ERROR:", error);

@@ -10,16 +10,20 @@ import { initLanding } from './landing.js';
 
 // Page configuration
 const pages = {
-    landing: {
+   landing: {
     title: 'Welcome',
     icon: '🍽️',
     render: async (container) => {
-        const res = await fetch('./src/pages/landing.html');
-        const html = await res.text();
-        container.innerHTML = html;
+        try {
+            const res = await fetch('./src/pages/landing.html');
+            const html = await res.text();
+            container.innerHTML = html;
 
-        // landing JS init
-        initLanding();
+            initLanding();
+        } catch (err) {
+            console.error("Landing load failed:", err);
+            container.innerHTML = "<h2>Landing failed to load</h2>";
+        }
     }
 },
     dashboard: {
